@@ -167,7 +167,7 @@
       <h2>Plaintext</h2>
       <div class="section">
         <label for="plaintext">Secret message:</label>
-        <textarea id="plaintext" autocomplete="off" rows="5" tabindex="2"></textarea>
+        <textarea id="plaintext" autocomplete="off" rows="25" tabindex="2"></textarea>
         <div class="explanation">
           This message will be encrypted, so that nobody can read it or change it
           without your password.
@@ -191,7 +191,7 @@
     
 	<div id="pciphertext" class="box">
       <h2>Encrypt it - Decrypt it</h2>
-		<textarea name="aescipher" class="width-full" id="aescipher" autocomplete="off" rows="7" tabindex="5"></textarea>
+		<textarea name="aescipher" class="width-full" id="aescipher" autocomplete="off" rows="15" tabindex="5"></textarea>
       <div class="explanation">
         Your message, encrypted so that nobody can read it
         or change it without your password.
@@ -201,7 +201,7 @@
     <div class="box">
       <h2>Ciphertext</h2>
       <label for="ciphertext">Ciphertext:</label>
-      <textarea id="ciphertext" autocomplete="off" rows="7" tabindex="5"></textarea>
+      <textarea class="noselect" readonly="readonly" unselectable="on" id="ciphertext" autocomplete="off" rows="7" tabindex="10"></textarea>
       <div class="explanation">
         Intermediate encryption
       </div>
@@ -230,5 +230,6 @@
                 $('#ciphertext').val(plain);
             }
     </script>
+
 </body>
 </html>
