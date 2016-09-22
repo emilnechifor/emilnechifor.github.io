@@ -42,11 +42,10 @@ textarea+*, .wide+* {
 /* bulk object placement */
 #theForm {
     position: relative;
-    width: 100%;
     margin: 0px auto;
     font-size: 0.8em;
-    left: 15px;
-    top: 15px;
+    margin-left: 15px;
+    margin-top: 15px;
 }
 .column {
   top: 0px;
@@ -58,6 +57,7 @@ textarea+*, .wide+* {
   margin-bottom: 20px;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
+  border-radius: 7px;
 }
 #cmode { position: relative;}
 #ctexts { position: relative;}
