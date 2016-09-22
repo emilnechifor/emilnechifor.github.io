@@ -58,7 +58,7 @@ textarea+*, .wide+* {
   -webkit-border-radius: 7px;
 }
 #cmode { position: absolute; left: 540px; display:none;}
-#ctexts { position: relative; }
+#ctexts { position: relative;}
 .floatright {
   float: right;
   text-align: right;
