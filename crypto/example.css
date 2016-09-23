@@ -35,6 +35,7 @@ p+p {
   margin: 0px -4px;
   font-size: inherit;
   text-align: left;
+  overflow-x: hidden;
 }
 textarea+*, .wide+* {
   margin-top: 0.3em;
@@ -163,7 +164,6 @@ input[type="radio"], input[type="checkbox"] {
    outline: none;
 }
 .button {
-   
     border-radius: 4px;
     cursor: pointer;
     position: relative;
