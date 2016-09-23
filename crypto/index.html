@@ -30,6 +30,7 @@
    <span class="button" id="close-id-1">
 <span class="text">Close</span>
 </span>
+<div class="after-button"></div>
   <div class="column" id="cmode">
 	<div class="box" id="pkey">
 	  <h2>Key Derivation</h2>
@@ -39,8 +40,8 @@
 		  <a class="random floatright" href="javascript:randomize('salt',2,0)">random</a>
 		</div>
 		<input type="text" id="salt" class="wide hex" autocomplete="off" size="17" maxlength="35"/>
-		<input type="checkbox" name="freshsalt" id="freshsalt" autocomplete="off" checked="checked"/>
-		<label for="freshsalt">Use fresh random salt for each new password</label>
+		<input type="checkbox" name="freshsalt" id="freshsalt" autocomplete="off" checked="checked" style="display:none;"/>
+		<label for="freshsalt" style="display:none;">Use fresh random salt for each new password</label>
 		<p class="explanation">
 		  Salt adds more variability to your key, and prevents attackers
 		  from using <a href="http://en.wikipedia.org/wiki/Rainbow_table">rainbow tables</a> to attack it.
@@ -48,7 +49,7 @@
 	  </div>
 	  <div class="section">
 		<label for="iter">Strengthen by a factor of:</label>
-		<input type="text" name="iter" id="iter" value="5000" class="numeric" size="5" maxlength="5" autocomplete="off"/>
+		<input type="text" name="iter" id="iter" value="1000" class="numeric" size="5" maxlength="5" autocomplete="off"/>
 		<p class="explanation">
 		  Strengthening makes it slower to compute the key corresponding to your
 		  password.  This makes it take much longer for an attacker to guess it.
@@ -68,28 +69,23 @@
 		</p>
 	  </div>
 	  <!-- cipher key -->
-	  <div class="section">
+	  <div class="section" style="display:none;">
 		<div>
 		  <label for="key">Key:</label>
 		  <!--
 		  <a class="random floatright" href="javascript:randomizeKey()">random</a>
 		  -->
 		</div>
-		<textarea id="key" name="key" class="hex" rows="2" autocomplete="off"></textarea>
+		<textarea class="hex noselect" readonly="readonly" unselectable="on" id="key" name="key" rows="2" autocomplete="off"></textarea>
 		<p class="explanation">
 		  This key is computed from your password, salt and strengthening factor.  It
-		  will be used internally by the cipher.  Instead of using a password, you can
-		  enter a key here directly.  If you do, it should be 32, 48 or 64 hexadecimal
-		  digits (128, 192 or 256 bits).
+		  will be used internally by the cipher.
 		</p>
 	  </div>
 	</div>
   
 	<div class="box">
 	  <h2>Cipher Parameters</h2>
-	  <p class="explanation">
-		SJCL encrypts your data with the <a href="http://en.wikipedia.org/wiki/Advanced_Encryption_Standard"><acronym title="Advanced Encryption Standard">AES</acronym></a> block cipher.
-	  </p>
 	  <div class="section">
 		Cipher mode:
 		<input type="radio" name="mode" value="ccm" id="ccm" autocomplete="off"/>
@@ -99,8 +95,6 @@
 		<input type="radio" name="mode" value="gcm" id="gcm" autocomplete="off"/>
 		<label for="gcm"><acronym title="Galois Counter Mode">GCM</acronym></label>
 		<p class="explanation">
-		  The cipher mode is a standard for how to use AES and other
-		  algorithms to encrypt and authenticate your message.
 		  <a href="http://en.wikipedia.org/wiki/OCB_mode">OCB2 mode</a> (patented) and
 		  <a href="http://en.wikipedia.org/wiki/GCM_mode">GCM mode</a> (unencumbered)
 		  are slightly faster and have more features than
@@ -114,16 +108,10 @@
 		  <a class="random floatright" href="javascript:randomize('iv',4,0)">random</a>
 		</div>
 		<input type="text" name="iv" id="iv" class="wide hex" size="32" maxlength="35" autocomplete="off"/>
-		<input type="checkbox" id="freshiv" autocomplete="off" checked="checked"/>
-		<label for="freshiv">Choose a new random IV for every message.</label>
+		<input type="checkbox" id="freshiv" autocomplete="off" checked="checked"  style="display:none;"/>
+		<label for="freshiv"  style="display:none;">Choose a new random IV for every message.</label>
 		<p class="explanation">
-		  The IV needs to be different for every message you send.  It adds
-		  randomness to your message, so that the same message will look
-		  different each time you send it.
-		</p>
-		<p class="explanation">
-		  Be careful: CCM mode and GCM mode don't use
-		  the whole IV, so changing just part of it isn't enough.
+		  The IV adds randomness to your message each time you send it.
 		</p>
 	  </div>
 	  
@@ -136,26 +124,17 @@
 		<input type="radio" name="tag" value="128" id="tag128" checked="checked" autocomplete="off"/>
 		<label for="tag128">128</label>
 		<p class="explanation">
-		  SJCL adds a an authentication tag to your message to make sure
-		  nobody changes it.  The longer the authentication tag, the harder it is
-		  for somebody to change your encrypted message without you noticing.  64
-		  bits is probably enough.
+The longer the authentication tag, the harder it is
+		  for somebody to change your encrypted message.
 		</p>
 	  </div>
 	  
-	  <div class="section">
+	  <div class="section" style="display:none;">
 		<input type="checkbox" name="json" id="json" autocomplete="off" checked="checked"/>
 		<label for="json">Send the parameters and authenticated data along
 		  with the message.</label>
 		 <p class="explanation">
-		   These parameters are required to decrypt your message later.  If the
-		   person you're sending the message to knows them, you don't need to send
-		   them so your message will be shorter.
-		 </p>
-		 <p class="explanation">
-		   Default parameters won't be sent.  Your password won't be sent, either.
-		   The salt and iv will be encoded in base64 instead of hex, so they'll
-		   look different from what's in the box.
+		   These parameters are required to decrypt your message later.
 		 </p>
 	  </div>
 	</div>
@@ -165,6 +144,7 @@
   <span class="button" id="open-id-1">
 <span class="text">Settings</span>
 </span>
+<div class="after-button"></div>
       <!-- Password and pbkdf2 parameters -->
     <div class="box" id="ppassword">
       <h2>Password</h2>
@@ -180,7 +160,7 @@
       <h2>Plaintext</h2>
       <div class="section">
         <label for="plaintext">Secret message:</label>
-        <textarea id="plaintext" autocomplete="off" rows="25" tabindex="2"></textarea>
+        <textarea id="plaintext" autocomplete="off" rows="5" tabindex="2"></textarea>
         <div class="explanation">
           This message will be encrypted, so that nobody can read it or change it
           without your password.
@@ -189,7 +169,7 @@
    
       <div class="section">
         <label for="adata">Authenticated data:</label>
-        <textarea id="adata" autocomplete="off" tabindex="3"></textarea>
+        <textarea id="adata" autocomplete="off" tabindex="3" rows="1" ></textarea>
         <div class="explanation">
           This auxilliary message isn't secret, but its integrity will be checked
           along with the integrity of the message.
@@ -204,17 +184,17 @@
     
 	<div id="pciphertext" class="box">
       <h2>Encrypt it - Decrypt it</h2>
-		<textarea name="aescipher" class="width-full" id="aescipher" autocomplete="off" rows="15" tabindex="5"></textarea>
+		<textarea name="aescipher" class="width-full" id="aescipher" autocomplete="off" rows="5" tabindex="7"></textarea>
       <div class="explanation">
         Your message, encrypted so that nobody can read it
         or change it without your password.
       </div>
     </div>
 	
-    <div class="box">
+    <div class="box" style="display:none;">
       <h2>Ciphertext</h2>
       <label for="ciphertext">Ciphertext:</label>
-      <textarea class="noselect" readonly="readonly" unselectable="on" id="ciphertext" autocomplete="off" rows="7" tabindex="10"></textarea>
+      <textarea class="noselect" readonly="readonly" unselectable="on" id="ciphertext" autocomplete="off" rows="5" tabindex="10"></textarea>
       <div class="explanation">
         Intermediate encryption
       </div>

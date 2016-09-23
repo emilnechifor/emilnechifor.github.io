@@ -163,7 +163,7 @@ input[type="radio"], input[type="checkbox"] {
    outline: none;
 }
 .button {
-    display: inline-block;
+   
     border-radius: 4px;
     cursor: pointer;
     position: relative;
@@ -176,8 +176,16 @@ input[type="radio"], input[type="checkbox"] {
     background-color: transparent;
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 0.7em;
-	left: 80%;
+	float:right;
+	right: 2%;
+}
+.after-button:before{
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
 [off-canvas] {
-    background-color: rgba(255, 255, 255, 1) !important;
+    background-color: rgba(255, 255, 255, 1);
 }
